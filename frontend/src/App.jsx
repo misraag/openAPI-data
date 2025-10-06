@@ -5,7 +5,7 @@ function App() {
   const [msg, setMsg] = useState("")
 
   useEffect(()=>{
-    axios.get("http://localhost:5000/")
+    axios.get("https://openapi-data-1.onrender.com/")
     .then((res)=> {
       console.log("Frontend connected to backend...")
       setMsg(res.data.message)
