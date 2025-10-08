@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // optional icon lib
-
+import { ChevronLeft, ChevronRight } from "lucide-react";
 function NewsSections({ news }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
-    const scrollAmount = 300; // adjust as needed
+    const scrollAmount = 300;
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -18,7 +17,6 @@ function NewsSections({ news }) {
     <div style={{ position: "relative", marginBottom: "30px" , width:"92vw", margin:'auto', marginTop:'40px'}}>
       <h3>Top News</h3>
 
-      {/* Left Arrow */}
       <button
         onClick={() => scroll("left")}
         style={{
@@ -39,7 +37,6 @@ function NewsSections({ news }) {
         <ChevronLeft />
       </button>
 
-      {/* Scrollable row */}
       <div
         ref={scrollRef}
         style={{
@@ -52,11 +49,11 @@ function NewsSections({ news }) {
       >
         {news
           .filter((item) => {
-            if (!item.urlToImage) return false; // null or undefined
+            if (!item.urlToImage) return false; 
             const url = item.urlToImage.trim();
-            if (url === "") return false; // empty string
+            if (url === "") return false;
 
-            // Only allow image extensions
+            
             const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
             return imageExtensions.some((ext) =>
               url.toLowerCase().endsWith(ext)
@@ -64,7 +61,10 @@ function NewsSections({ news }) {
           })
           .slice(0, 12)
           .map((item, index) => (
-            <div
+            <a
+                href={item.url}
+                target="_blank"
+                
               key={index}
               style={{
                 flex: "0 0 195px",
@@ -73,6 +73,7 @@ function NewsSections({ news }) {
                 color: "#000",
                 overflow: "hidden",
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                textDecoration:"none"
               }}
             >
               <img
@@ -101,11 +102,10 @@ function NewsSections({ news }) {
                       {item.description}
                     </div>
                   </div>
-            </div>
+            </a>
           ))}
       </div>
 
-      {/* Right Arrow */}
       <button
         onClick={() => scroll("right")}
         style={{

@@ -25,7 +25,7 @@ function BreakNews({ news }) {
               <a
                 href={item.url}
                 target="_blank"
-                style={{ textDecoration: "none" }} // removes underline
+                style={{ textDecoration: "none" }}
               >
                 <div
                   style={{
@@ -36,7 +36,7 @@ function BreakNews({ news }) {
                     boxShadow: "0 0 10px rgba(0,0,0,0.2)",
                     padding: 0,
                     cursor: "pointer",
-                    transition: "transform 0.2s", // nice hover effect
+                    transition: "transform 0.2s",
                   }}
                   className="news-tile"
                 >
