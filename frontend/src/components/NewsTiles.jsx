@@ -1,10 +1,10 @@
 import React from "react";
 
 
-function BreakNews({ news }) {
+function NewsTiles({category, news }) {
   return (
     <div style={{ marginBottom: "30px" , width: "95vw", margin:"auto", marginTop:"10px"}}>
-      <h3 style={{color: "#555"}}>Top News</h3>
+      <h3 style={{color: "#555"}}>{category} News</h3>
 
       <div
         className="row gx-3 gy-3" 
@@ -19,7 +19,6 @@ function BreakNews({ news }) {
               url.toLowerCase().endsWith(ext)
             );
           })
-          .slice(0, 12)
           .map((item, index) => (
             <div key={index} className="col-lg-2 col-md-3 col-6">
               <a
@@ -75,4 +74,4 @@ function BreakNews({ news }) {
   );
 }
 
-export default BreakNews;
+export default NewsTiles;

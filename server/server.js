@@ -20,32 +20,35 @@ app.get('/', (req, res) => {
   });
 });
 
-let cachedNews = null;
-let lastFetchTime = 0;
+let cachedNews = {};
+let lastFetchTime = {};
 const CACHE_DURATION = 1000 * 60 * 60;
 
-app.get("/news", async (req, res) => {
-  const now = Date.now();
 
-  console.log("Entered news api...")
-
-  if (cachedNews && (now - lastFetchTime < CACHE_DURATION)) {
-    console.log("Returning cached news 🗞️");
-    return res.json(cachedNews);
-  }
-
-  console.log("Fetching new news....")
-  const url =
-    "https://newsapi.org/v2/everything?" +
-    "q=News&" +
+const url =
+    "https://newsapi.org/v2/everything?"  +
     "sortBy=popularity&" +
-    "apiKey=411f72e6d5734fc79b19ee2d1f243158";
+    "apiKey=411f72e6d5734fc79b19ee2d1f243158&";
+
+app.get("/news/:category", async (req, res) => {
+  let now = Date.now();
+  let category = req.params.category
+  let categoryURL = `q=${req.params.category}`
+
+  console.log("Entered news api for category:... ", category)
+ 
+
+  if (cachedNews[category] && (now - lastFetchTime[category] < CACHE_DURATION)) {
+    console.log(`Returning cached news for category ${category}`);
+    return res.json(cachedNews[category]);
+  }
+  
 
   try {
-    const response = await axios.get(url);
-    cachedNews = response.data;
-    lastFetchTime = now;
-    console.log("Fetched fresh news 🔄");
+    const response = await axios.get(url+categoryURL);
+    cachedNews[category] = response.data;
+    lastFetchTime[category] = now;
+    console.log(`Fetched fresh news for category ${category}`)
     res.json(cachedNews);
   } catch (error) {
     console.error("Error fetching news:", error.message);

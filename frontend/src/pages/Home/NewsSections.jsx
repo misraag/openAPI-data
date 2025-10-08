@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-function NewsSections({ news }) {
+import './Home.css'
+
+function NewsSections({ category, news }) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -14,8 +16,17 @@ function NewsSections({ news }) {
   };
 
   return (
-    <div style={{ position: "relative", marginBottom: "30px" , width:"92vw", margin:'auto', marginTop:'40px'}}>
-      <h3>Top News</h3>
+    <div
+      style={{
+        position: "relative",
+        marginBottom: "30px",
+        width: "92vw",
+        margin: "auto",
+        marginTop: "40px",
+      }}
+    >
+
+      <h5>{category} News</h5>
 
       <button
         onClick={() => scroll("left")}
@@ -39,6 +50,7 @@ function NewsSections({ news }) {
 
       <div
         ref={scrollRef}
+        className="thin-scroll"
         style={{
           display: "flex",
           overflowX: "auto",
@@ -49,11 +61,10 @@ function NewsSections({ news }) {
       >
         {news
           .filter((item) => {
-            if (!item.urlToImage) return false; 
+            if (!item.urlToImage) return false;
             const url = item.urlToImage.trim();
             if (url === "") return false;
 
-            
             const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
             return imageExtensions.some((ext) =>
               url.toLowerCase().endsWith(ext)
@@ -62,9 +73,9 @@ function NewsSections({ news }) {
           .slice(0, 12)
           .map((item, index) => (
             <a
-                href={item.url}
-                target="_blank"
-                
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
               key={index}
               style={{
                 flex: "0 0 195px",
@@ -73,7 +84,7 @@ function NewsSections({ news }) {
                 color: "#000",
                 overflow: "hidden",
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                textDecoration:"none"
+                textDecoration: "none",
               }}
             >
               <img
@@ -86,22 +97,22 @@ function NewsSections({ news }) {
                 }}
               />
               <div style={{ padding: "10px" }}>
-                    <h6 style={{ height: "40px", overflow: "hidden" }}>
-                      {item.title}
-                    </h6>
+                <h6 style={{ height: "40px", overflow: "hidden" }}>
+                  {item.title}
+                </h6>
 
-                    <div
-                      style={{
-                        height: "35px",
-                        overflow: "hidden",
-                        fontSize: "12px",
-                        color: "#555",
-                        marginBottom: "5px",
-                      }}
-                    >
-                      {item.description}
-                    </div>
-                  </div>
+                <div
+                  style={{
+                    height: "35px",
+                    overflow: "hidden",
+                    fontSize: "12px",
+                    color: "#555",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {item.description}
+                </div>
+              </div>
             </a>
           ))}
       </div>
