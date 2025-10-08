@@ -12,8 +12,10 @@ function Home() {
 //   const [sportsNews, setSportsNews] = useState(null);
 //   const [worldNews, setWorldNews] = useState(null);
 
+// https://openapi-data-1.onrender.com
+
   useEffect(() => {
-    axios.get("http://localhost:5000/news").then((res) => {
+    axios.get("https://openapi-data-1.onrender.com/news").then((res) => {
       console.log("Received data: ", res.data);
       setBreakingNews(res.data.articles || []);
     });
