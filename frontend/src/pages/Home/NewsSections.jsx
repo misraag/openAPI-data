@@ -86,6 +86,7 @@ function NewsSections({ category, news , darkMode}) {
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
                 textDecoration: "none",
               }}
+              className="news-tile"
             >
               <img
                 src={item.urlToImage}

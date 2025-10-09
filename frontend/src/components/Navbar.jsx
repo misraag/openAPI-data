@@ -136,6 +136,7 @@ function Navbar({darkMode, setDarkMode}) {
               className="form-check-input"
               type="checkbox"
               id="darkModeSwitch"
+              style={{cursor:'pointer'}}
               onChange={() => setDarkMode(!darkMode)}
             />
             <label className="form-check-label" htmlFor="darkModeSwitch">

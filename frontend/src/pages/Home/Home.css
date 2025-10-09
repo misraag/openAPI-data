@@ -1,16 +1,26 @@
 thin-scroll::-webkit-scrollbar {
-      height: 3px; 
-    }
-    .thin-scroll::-webkit-scrollbar-thumb {
-      background: rgba(237, 21, 21, 0.3);
-      border-radius: 2px;
-    }
-    .thin-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
+  height: 3px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(237, 21, 21, 0.3);
+  border-radius: 2px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
 
- 
-    .thin-scroll {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(54, 48, 56, 0.3) transparent;
-    }
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(54, 48, 56, 0.3) transparent;
+}
+
+.news-tile {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-tile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  position: relative;
+}
