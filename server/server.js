@@ -49,7 +49,7 @@ app.get("/news/:category", async (req, res) => {
     cachedNews[category] = response.data;
     lastFetchTime[category] = now;
     console.log(`Fetched fresh news for category ${category}`)
-    res.json(cachedNews);
+    res.json(cachedNews[category]);
   } catch (error) {
     console.error("Error fetching news:", error.message);
     res.status(500).json({ error: "Failed to fetch news" });

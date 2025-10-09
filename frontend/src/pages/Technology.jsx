@@ -6,6 +6,7 @@ import NewsTiles from '../components/NewsTiles';
 function Technology() {
 
     let [techNews, setTechNews] = useState([]);
+    let [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         axios
@@ -13,11 +14,11 @@ function Technology() {
       .then((res) => {
         console.log("Received Technology News: ", res.data);
         setTechNews(res.data.articles || []);
-      });
+      }).finally(() => setLoading(false));
     },[])
 
     return (
-        <NewsTiles category="Tech" news={techNews}/>
+        <NewsTiles loading={loading} category="Tech" news={techNews}/>
     );
 }
 

@@ -6,6 +6,7 @@ import NewsTiles from '../components/NewsTiles';
 function WorldNews() {
 
     let [worldNews, setWorldNews] = useState([]);
+    let [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         axios
@@ -13,11 +14,11 @@ function WorldNews() {
       .then((res) => {
         console.log("Received World News: ", res.data);
         setWorldNews(res.data.articles || []);
-      });
+      }).finally(() => setLoading(false));
     },[])
 
     return (
-        <NewsTiles category="World" news={worldNews}/>
+        <NewsTiles loading={loading} category="World" news={worldNews}/>
     );
 }
 

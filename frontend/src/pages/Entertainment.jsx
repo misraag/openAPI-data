@@ -6,6 +6,7 @@ import NewsTiles from '../components/NewsTiles';
 function Entertainment() {
 
     let [entertainmentNews, setEntertainmentNews] = useState([]);
+    let [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         axios
@@ -13,11 +14,11 @@ function Entertainment() {
       .then((res) => {
         console.log("Received Entertainment News: ", res.data);
         setEntertainmentNews(res.data.articles || []);
-      });
+      }).finally(() => setLoading(false));
     },[])
 
     return (
-        <NewsTiles category="Entertainment" news={entertainmentNews}/>
+        <NewsTiles loading={loading} category="Entertainment" news={entertainmentNews}/>
     );
 }
 

@@ -6,6 +6,7 @@ import NewsTiles from '../components/NewsTiles';
 function Sports() {
 
     let [sportsNews, setSportsNews] = useState([]);
+    let [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         axios
@@ -13,11 +14,11 @@ function Sports() {
       .then((res) => {
         console.log("Received Sports News: ", res.data);
         setSportsNews(res.data.articles || []);
-      });
+      }).finally(() => setLoading(false));
     },[])
 
     return (
-        <NewsTiles category="Sports" news={sportsNews}/>
+        <NewsTiles loading={loading} category="Sports" news={sportsNews}/>
     );
 }
 
