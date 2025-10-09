@@ -26,7 +26,7 @@ function NewsSections({ category, news , darkMode}) {
       }}
     >
 
-      <h5>{category} News</h5>
+      <h5 style={{color: darkMode? "white":"black"}}>{category} News</h5>
 
       <button
         onClick={() => scroll("left")}
@@ -96,7 +96,7 @@ function NewsSections({ category, news , darkMode}) {
                   objectFit: "cover",
                 }}
               />
-              <div style={{ padding: "10px", backgroundColor: darkMode? "grey":"white", color: darkMode? "white":"black"}}>
+              <div style={{ padding: "10px", backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black"}}>
                 <h6 style={{ height: "40px", overflow: "hidden" }}>
                   {item.title}
                 </h6>

@@ -4,7 +4,7 @@ import React from "react";
 function BreakNews({ news, darkMode }) {
   return (
     <div style={{ marginBottom: "30px" , width: "95vw", margin:"auto", marginTop:"10px"}}>
-      <h3 style={{color: "#555"}}>Top News</h3>
+      <h3 style={{color: darkMode? "white":"black"}}>Top News</h3>
 
       <div
         className="row gx-3 gy-3" 
@@ -49,7 +49,7 @@ function BreakNews({ news, darkMode }) {
                       objectFit: "cover",
                     }}
                   />
-                  <div style={{ padding: "10px" , backgroundColor: darkMode? "grey":"white", color: darkMode? "white":"black"}}>
+                  <div style={{ padding: "10px" , backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black"}}>
                     <h6 style={{ height: "40px", overflow: "hidden" }}>
                       {item.title}
                     </h6>

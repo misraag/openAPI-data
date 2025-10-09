@@ -15,7 +15,7 @@ function NewsTiles({ category, news, loading, darkMode}) {
             marginTop: "10px",
           }}
         >
-          <h3 style={{ color: "#555" }}>{category} News</h3>
+          <h3 style={{ color: darkMode? "white":"black"}}>{category} News</h3>
 
           <div className="row gx-3 gy-3">
             {news
@@ -39,7 +39,7 @@ function NewsTiles({ category, news, loading, darkMode}) {
                   <a
                     href={item.url}
                     target="_blank"
-                    style={{ textDecoration: "none" }}
+                    style={{ textDecoration: "none"}}
                   >
                     <div
                       style={{
@@ -63,7 +63,7 @@ function NewsTiles({ category, news, loading, darkMode}) {
                           objectFit: "cover",
                         }}
                       />
-                      <div style={{ padding: "10px", backgroundColor: darkMode? "grey":"white", color: darkMode? "white":"black" }}>
+                      <div style={{ padding: "10px", backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black" }}>
                         <h6 style={{ height: "40px", overflow: "hidden" }}>
                           {item.title}
                         </h6>
