@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "./Loading";
 
-function NewsTiles({ category, news, loading }) {
+function NewsTiles({ category, news, loading, darkMode}) {
   return (
     <div>
       {loading ? (
@@ -63,7 +63,7 @@ function NewsTiles({ category, news, loading }) {
                           objectFit: "cover",
                         }}
                       />
-                      <div style={{ padding: "10px" }}>
+                      <div style={{ padding: "10px", backgroundColor: darkMode? "grey":"white", color: darkMode? "white":"black" }}>
                         <h6 style={{ height: "40px", overflow: "hidden" }}>
                           {item.title}
                         </h6>
@@ -73,7 +73,7 @@ function NewsTiles({ category, news, loading }) {
                             height: "70px",
                             overflow: "hidden",
                             fontSize: "12px",
-                            color: "#555",
+                            color: darkMode? "#c5babaff":"#555",
                             marginBottom: "5px",
                           }}
                         >

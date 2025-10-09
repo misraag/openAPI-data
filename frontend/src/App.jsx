@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Entertainment from "./pages/Entertainment";
 import Home from "./pages/Home/Home";
@@ -10,20 +11,23 @@ import WorldNews from "./pages/WorldNews";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
+
+  let [darkMode, setDarkMode] = useState(false)
+
   return (
-    <>
-      <Navbar />
+    <div style={{backgroundColor: darkMode ? "black":"white"}}>
+      <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/WorldNews" element={<WorldNews />} />
-        <Route path="/Politics" element={<Politics />} />
-        <Route path="/Sports" element={<Sports />} />
-        <Route path="/Technology" element={<Technology />} />
-        <Route path="/Entertainment" element={<Entertainment />} />
-        <Route path="/National" element={<National />} />
-        <Route path="/state/:stateName" element={<StateNews />} />
+        <Route path="/" element={<Home darkMode={darkMode}/>} />
+        <Route path="/WorldNews" element={<WorldNews darkMode={darkMode}/>} />
+        <Route path="/Politics" element={<Politics darkMode={darkMode}/>} />
+        <Route path="/Sports" element={<Sports darkMode={darkMode}/>} />
+        <Route path="/Technology" element={<Technology darkMode={darkMode}/>} />
+        <Route path="/Entertainment" element={<Entertainment darkMode={darkMode}/>} />
+        <Route path="/National" element={<National darkMode={darkMode}/>} />
+        <Route path="/state/:stateName" element={<StateNews darkMode={darkMode}/>} />
       </Routes>
-    </>
+    </div>
   );
 }
 

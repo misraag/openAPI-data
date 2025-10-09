@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({darkMode, setDarkMode}) {
   const states = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -136,7 +136,7 @@ function Navbar() {
               className="form-check-input"
               type="checkbox"
               id="darkModeSwitch"
-              onChange={() => alert("Dark mode toggled (implement logic)")}
+              onChange={() => setDarkMode(!darkMode)}
             />
             <label className="form-check-label" htmlFor="darkModeSwitch">
               Dark Mode

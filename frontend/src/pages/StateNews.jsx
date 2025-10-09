@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import NewsTiles from "../components/NewsTiles";
 
-function StateNews() {
+function StateNews({darkMode}) {
   const { stateName } = useParams();
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ function StateNews() {
 
   return (
     
-        <NewsTiles news={news} category={stateName} loading={loading}/>
+        <NewsTiles darkMode={darkMode} news={news} category={stateName} loading={loading}/>
       
   );
 }

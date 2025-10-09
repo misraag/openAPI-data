@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import NewsTiles from '../components/NewsTiles';
 
-function Entertainment() {
+function Entertainment({darkMode}) {
 
     let [entertainmentNews, setEntertainmentNews] = useState([]);
     let [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ function Entertainment() {
     },[])
 
     return (
-        <NewsTiles loading={loading} category="Entertainment" news={entertainmentNews}/>
+        <NewsTiles loading={loading} category="Entertainment" news={entertainmentNews} darkMode={darkMode}/>
     );
 }
 

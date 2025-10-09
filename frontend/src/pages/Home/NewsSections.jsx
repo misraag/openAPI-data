@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import './Home.css'
 
-function NewsSections({ category, news }) {
+function NewsSections({ category, news , darkMode}) {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -96,7 +96,7 @@ function NewsSections({ category, news }) {
                   objectFit: "cover",
                 }}
               />
-              <div style={{ padding: "10px" }}>
+              <div style={{ padding: "10px", backgroundColor: darkMode? "grey":"white", color: darkMode? "white":"black"}}>
                 <h6 style={{ height: "40px", overflow: "hidden" }}>
                   {item.title}
                 </h6>
@@ -106,7 +106,7 @@ function NewsSections({ category, news }) {
                     height: "35px",
                     overflow: "hidden",
                     fontSize: "12px",
-                    color: "#555",
+                    color: darkMode? "#c5babaff":"#555",
                     marginBottom: "5px",
                   }}
                 >

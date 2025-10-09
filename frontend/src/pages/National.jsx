@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import NewsTiles from '../components/NewsTiles';
 
-function National() {
+function National({darkMode}) {
 
     let [nationalNews, setNationalNews] = useState([]);
     let [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ function National() {
     },[])
 
     return (
-        <NewsTiles loading={loading} category="National" news={nationalNews}/>
+        <NewsTiles darkMode={darkMode} loading={loading} category="National" news={nationalNews}/>
     );
 }
 

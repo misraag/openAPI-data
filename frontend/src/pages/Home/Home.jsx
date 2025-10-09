@@ -5,7 +5,7 @@ import BreakNews from "./BreakNews";
 import NewsSections from "./NewsSections";
 import Loading from "../../components/Loading";
 
-function Home() {
+function Home({darkMode}) {
   let [topNews, setTopNews] = useState([]);
   let [techNews, setTechNews] = useState([]);
   let [sportsNews, setSportsNews] = useState([]);
@@ -43,10 +43,10 @@ function Home() {
         <Loading state="Top" />
       ) : (
         <div>
-          <BreakNews news={topNews} />
-          <NewsSections category="Technology" news={techNews} />
-          <NewsSections category="Sports" news={sportsNews} />
-          <NewsSections category="World" news={worldNews} />
+          <BreakNews darkMode={darkMode} news={topNews} />
+          <NewsSections darkMode={darkMode} category="Technology" news={techNews} />
+          <NewsSections darkMode={darkMode} category="Sports" news={sportsNews} />
+          <NewsSections darkMode={darkMode} category="World" news={worldNews} />
         </div>
       )}
     </>
