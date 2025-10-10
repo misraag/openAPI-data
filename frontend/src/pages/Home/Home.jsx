@@ -18,7 +18,7 @@ function Home({darkMode}) {
     const fetchNews = async () => {
       try {
         const [topRes, techRes, sportsRes, worldRes] = await Promise.all([
-          axios.get("http://localhost:5000/news/News"),
+          axios.get("http://localhost:5000/news/Headlines"),
           axios.get("http://localhost:5000/news/Tech"),
           axios.get("http://localhost:5000/news/Cricket"),
           axios.get("http://localhost:5000/news/World"),
