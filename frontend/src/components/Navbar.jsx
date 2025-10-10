@@ -65,7 +65,7 @@ function Navbar({darkMode, setDarkMode}) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/WorldNews">
+              <Link className="nav-link" to="/World">
                 World
               </Link>
             </li>

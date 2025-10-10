@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import './Home.css'
+import ExploreButton from "../../components/ExploreButton";
 
 function NewsSections({ category, news , darkMode}) {
   const scrollRef = useRef(null);
@@ -26,8 +27,10 @@ function NewsSections({ category, news , darkMode}) {
       }}
     >
 
-      <h5 style={{color: darkMode? "white":"black"}}>{category} News</h5>
-
+      <div style={{ display: "flex", alignItems:'center', marginBottom:'15px'}}>
+        <h5 style={{ color: darkMode ? "white" : "black", margin:'0', lineHeight: '1'}}>{category} News</h5>
+        <ExploreButton darkMode={darkMode} to={`/${category}`} />
+      </div>
       <button
         onClick={() => scroll("left")}
         style={{

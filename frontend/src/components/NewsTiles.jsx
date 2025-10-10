@@ -16,7 +16,7 @@ function NewsTiles({ category, news, loading, darkMode}) {
           }}
         >
           <h3 style={{ color: darkMode? "white":"black"}}>{category} News</h3>
-
+          
           <div className="row gx-3 gy-3">
             {news
               .filter((item) => {

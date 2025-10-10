@@ -1,14 +1,18 @@
 import React from "react";
 
-
 function BreakNews({ news, darkMode }) {
   return (
-    <div style={{ marginBottom: "30px" , width: "95vw", margin:"auto", marginTop:"10px"}}>
-      <h3 style={{color: darkMode? "white":"black"}}>Top News</h3>
+    <div
+      style={{
+        marginBottom: "30px",
+        width: "95vw",
+        margin: "auto",
+        marginTop: "30px",
+      }}
+    >
+      <h3 style={{ color: darkMode ? "white" : "black" }}>Headlines</h3>
 
-      <div
-        className="row gx-3 gy-3" 
-      >
+      <div className="row gx-3 gy-3">
         {news
           .filter((item) => {
             if (!item.urlToImage) return false;
@@ -49,7 +53,13 @@ function BreakNews({ news, darkMode }) {
                       objectFit: "cover",
                     }}
                   />
-                  <div style={{ padding: "10px" , backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black"}}>
+                  <div
+                    style={{
+                      padding: "10px",
+                      backgroundColor: darkMode ? "#040404" : "white",
+                      color: darkMode ? "white" : "black",
+                    }}
+                  >
                     <h6 style={{ height: "40px", overflow: "hidden" }}>
                       {item.title}
                     </h6>
@@ -59,7 +69,7 @@ function BreakNews({ news, darkMode }) {
                         height: "70px",
                         overflow: "hidden",
                         fontSize: "12px",
-                        color: darkMode? "#c5babaff":"#555",
+                        color: darkMode ? "#c5babaff" : "#555",
                         marginBottom: "5px",
                       }}
                     >

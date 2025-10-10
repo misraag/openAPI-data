@@ -19,7 +19,7 @@ function App() {
       <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
       <Routes>
         <Route path="/" element={<Home darkMode={darkMode}/>} />
-        <Route path="/WorldNews" element={<WorldNews darkMode={darkMode}/>} />
+        <Route path="/World" element={<WorldNews darkMode={darkMode}/>} />
         <Route path="/Politics" element={<Politics darkMode={darkMode}/>} />
         <Route path="/Sports" element={<Sports darkMode={darkMode}/>} />
         <Route path="/Technology" element={<Technology darkMode={darkMode}/>} />
