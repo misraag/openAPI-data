@@ -9,6 +9,7 @@ import StateNews from "./pages/StateNews";
 import Technology from "./pages/Technology";
 import WorldNews from "./pages/WorldNews";
 import { Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/National" element={<National darkMode={darkMode}/>} />
         <Route path="/state/:stateName" element={<StateNews darkMode={darkMode}/>} />
       </Routes>
+      <Footer/>
     </div>
   );
 }
