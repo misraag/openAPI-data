@@ -15,7 +15,7 @@ function NewsTiles({ category, news, loading, darkMode}) {
             marginTop: "10px",
           }}
         >
-          <h3 style={{ color: darkMode? "white":"black"}}>{category} News</h3>
+          <h3 style={{ color: darkMode? "white":"black", fontFamily: "'Marcellus', serif", fontWeight:'bolder'}}>{category} News</h3>
           
           <div className="row gx-3 gy-3">
             {news

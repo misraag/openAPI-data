@@ -10,7 +10,7 @@ function BreakNews({ news, darkMode }) {
         marginTop: "30px",
       }}
     >
-      <h3 style={{ color: darkMode ? "white" : "black" }}>Headlines</h3>
+      <h3 style={{ color: darkMode ? "white" : "black", fontFamily: "'Marcellus', serif", fontWeight:'bolder', letterSpacing:'1px'}}>Headlines</h3>
 
       <div className="row gx-3 gy-3">
         {news

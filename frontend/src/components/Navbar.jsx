@@ -39,9 +39,9 @@ function Navbar({darkMode, setDarkMode}) {
   ];
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{fontFamily: "'Marcellus', serif", marginBottom:'25px'}}>
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" style={{ fontFamily: "'Marcellus', serif", fontWeight: "bold", letterSpacing: "1px" }}>
           NewsHub
         </Link>
 
@@ -132,6 +132,7 @@ function Navbar({darkMode, setDarkMode}) {
           </form> */}
 
           <div className="form-check form-switch text-white">
+            
             <input
               className="form-check-input"
               type="checkbox"

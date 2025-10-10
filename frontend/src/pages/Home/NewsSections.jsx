@@ -28,7 +28,7 @@ function NewsSections({ category, news , darkMode}) {
     >
 
       <div style={{ display: "flex", alignItems:'center', marginBottom:'15px'}}>
-        <h5 style={{ color: darkMode ? "white" : "black", margin:'0', lineHeight: '1'}}>{category} News</h5>
+        <h5 style={{ color: darkMode ? "white" : "black", margin:'0', lineHeight: '1', fontFamily: "'Marcellus', serif", fontWeight:'bolder'}}>{category} News</h5>
         <ExploreButton darkMode={darkMode} to={`/${category}`} />
       </div>
       <button

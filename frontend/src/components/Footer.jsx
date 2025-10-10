@@ -24,7 +24,7 @@ function Footer() {
       >
 
         <div style={{ flex: "1 1 200px" }}>
-          <strong>NewsHub</strong> — Stay updated with top news from India and worldwide.
+          <strong style={{ fontFamily: "'Marcellus', serif"}}>NewsHub</strong> — Stay updated with top news from India and worldwide.
         </div>
 
 
