@@ -1,8 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function BreakNews({ news, darkMode }) {
+  useEffect(() => {
+    const handler = (e) => e.key === "Escape" && setShowModal(false);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
   const [activeArticle, setActiveArticle] = useState(null);
   const [summary, setSummary] = useState("");
@@ -130,17 +136,27 @@ function BreakNews({ news, darkMode }) {
                       style={{
                         position: "fixed",
                         inset: 0,
-                        backgroundColor: "rgba(245, 245, 245, 0.1)", // translucent
-                        backdropFilter: "blur(4px)", // premium blur
+                        backgroundColor: "rgba(255, 254, 254, 0.1)",
+                        // backdropFilter: "blur(4px)",
                         zIndex: 1050,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
-                      onClick={() => setShowModal(false)} // click outside closes modal
                     >
+                      {/* Backdrop click layer */}
+                      <div
+                        onClick={() => setShowModal(false)}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                        }}
+                      />
+
+                      {/* Modal box */}
                       <div
                         style={{
+                          position: "relative",
                           width: "600px",
                           maxWidth: "90%",
                           background: darkMode ? "#0b0b0b" : "#ffffff",
@@ -148,8 +164,9 @@ function BreakNews({ news, darkMode }) {
                           borderRadius: "10px",
                           overflow: "hidden",
                           boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+                          zIndex: 1,
                         }}
-                        onClick={(e) => e.stopPropagation()} // prevent close on inner click
+                        onClick={(e) => e.stopPropagation()} // solid isolation
                       >
                         {/* Header */}
                         <div
@@ -162,14 +179,20 @@ function BreakNews({ news, darkMode }) {
                           }}
                         >
                           <h6 style={{ margin: 0 }}>AI Summary Using Groq</h6>
+
+                          {/* ❌ Close button */}
                           <button
-                            onClick={() => setShowModal(false)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowModal(false);
+                            }}
                             style={{
                               background: "transparent",
                               border: "none",
-                              fontSize: "20px",
+                              fontSize: "22px",
                               cursor: "pointer",
                               color: darkMode ? "white" : "black",
+                              pointerEvents: "auto",
                             }}
                           >
                             ×
@@ -232,7 +255,11 @@ function BreakNews({ news, darkMode }) {
 
                           <button
                             className="btn btn-outline-secondary btn-sm"
-                            onClick={() => setShowModal(false)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setShowModal(false);
+                            }}
+                            style={{ pointerEvents: "auto" }}
                           >
                             Close
                           </button>
