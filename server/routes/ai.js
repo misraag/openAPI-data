@@ -27,8 +27,9 @@ router.post("/summarize", async (req, res) => {
     }
 
     const prompt = `
-Summarize the following news in 3 short bullet points.
-Use simple language.
+Write a concise, professional news summary in paragraph form.
+Tone should be neutral and informative, like a news editor.
+Do not use bullet points.
 
 Title: ${title}
 Description: ${description || ""}
