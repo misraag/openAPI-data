@@ -3,27 +3,30 @@ import { useState } from "react";
 import axios from "axios";
 
 function BreakNews({ news, darkMode }) {
-  const [summaries, setSummaries] = useState({});
-  const [loadingId, setLoadingId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [activeArticle, setActiveArticle] = useState(null);
+  const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fetchSummary = async (article) => {
+  const openSummaryModal = async (article) => {
+    setActiveArticle(article);
+    setShowModal(true);
+    setLoading(true);
+    setSummary("");
+
     try {
-      setLoadingId(article.url);
-
       const res = await axios.post("http://localhost:5000/ai/summarize", {
         title: article.title,
         description: article.description,
         url: article.url,
       });
 
-      setSummaries((prev) => ({
-        ...prev,
-        [article.url]: res.data.summary,
-      }));
+      setSummary(res.data.summary);
     } catch (err) {
-      console.error("AI summary error", err);
+      setSummary("Failed to generate summary.");
+      console.log("Error ", err);
     } finally {
-      setLoadingId(null);
+      setLoading(false);
     }
   };
 
@@ -114,36 +117,127 @@ function BreakNews({ news, darkMode }) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      fetchSummary(item);
-                    }}
-                    style={{
-                      fontSize: "12px",
-                      padding: "4px 6px",
-                      marginTop: "6px",
+                      openSummaryModal(item);
                     }}
                     className="btn btn-outline-secondary"
+                    style={{ fontSize: "12px", padding: "4px 6px" }}
                   >
                     ✨ AI Summary
                   </button>
-                  {loadingId === item.url && (
-                    <p style={{ fontSize: "12px", color: "#888" }}>
-                      Generating summary...
-                    </p>
-                  )}
-                  {summaries[item.url] && (
+
+                  {showModal && (
                     <div
-                      onClick={(e) => e.stopPropagation()}
                       style={{
-                        marginTop: "6px",
-                        fontSize: "12px",
-                        background: "#f8f9fa",
-                        padding: "6px",
-                        borderRadius: "4px",
-                        maxHeight: "80px",
-                        overflowY: "auto",
+                        position: "fixed",
+                        inset: 0,
+                        backgroundColor: "rgba(245, 245, 245, 0.1)", // translucent
+                        backdropFilter: "blur(4px)", // premium blur
+                        zIndex: 1050,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
+                      onClick={() => setShowModal(false)} // click outside closes modal
                     >
-                      {summaries[item.url]}
+                      <div
+                        style={{
+                          width: "600px",
+                          maxWidth: "90%",
+                          background: darkMode ? "#0b0b0b" : "#ffffff",
+                          color: darkMode ? "#ffffff" : "#000000",
+                          borderRadius: "10px",
+                          overflow: "hidden",
+                          boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+                        }}
+                        onClick={(e) => e.stopPropagation()} // prevent close on inner click
+                      >
+                        {/* Header */}
+                        <div
+                          style={{
+                            padding: "12px 16px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            borderBottom: "1px solid rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          <h6 style={{ margin: 0 }}>AI Summary Using Groq</h6>
+                          <button
+                            onClick={() => setShowModal(false)}
+                            style={{
+                              background: "transparent",
+                              border: "none",
+                              fontSize: "20px",
+                              cursor: "pointer",
+                              color: darkMode ? "white" : "black",
+                            }}
+                          >
+                            ×
+                          </button>
+                        </div>
+
+                        {/* Image */}
+                        {activeArticle?.urlToImage && (
+                          <img
+                            src={activeArticle.urlToImage}
+                            alt="Article"
+                            style={{
+                              width: "100%",
+                              height: "220px",
+                              objectFit: "cover",
+                            }}
+                          />
+                        )}
+
+                        {/* Content */}
+                        <div style={{ padding: "16px" }}>
+                          <h5 style={{ marginBottom: "10px" }}>
+                            {activeArticle?.title}
+                          </h5>
+
+                          {loading ? (
+                            <p style={{ fontSize: "14px", opacity: 0.7 }}>
+                              Generating AI summary...
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                fontSize: "14px",
+                                lineHeight: "1.6",
+                                opacity: 0.9,
+                              }}
+                            >
+                              {summary}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Footer */}
+                        <div
+                          style={{
+                            padding: "12px 16px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            borderTop: "1px solid rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          <a
+                            href={activeArticle?.url}
+                            target="_blank"
+                            onClick={(e) => e.stopPropagation()}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Read Full Article
+                          </a>
+
+                          <button
+                            className="btn btn-outline-secondary btn-sm"
+                            onClick={() => setShowModal(false)}
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
