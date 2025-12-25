@@ -1,6 +1,32 @@
 import React from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function BreakNews({ news, darkMode }) {
+  const [summaries, setSummaries] = useState({});
+  const [loadingId, setLoadingId] = useState(null);
+
+  const fetchSummary = async (article) => {
+    try {
+      setLoadingId(article.url);
+
+      const res = await axios.post("http://localhost:5000/ai/summarize", {
+        title: article.title,
+        description: article.description,
+        url: article.url,
+      });
+
+      setSummaries((prev) => ({
+        ...prev,
+        [article.url]: res.data.summary,
+      }));
+    } catch (err) {
+      console.error("AI summary error", err);
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
   return (
     <div
       style={{
@@ -10,7 +36,16 @@ function BreakNews({ news, darkMode }) {
         marginTop: "30px",
       }}
     >
-      <h3 style={{ color: darkMode ? "white" : "black", fontFamily: "'Marcellus', serif", fontWeight:'bolder', letterSpacing:'1px'}}>Headlines</h3>
+      <h3
+        style={{
+          color: darkMode ? "white" : "black",
+          fontFamily: "'Marcellus', serif",
+          fontWeight: "bolder",
+          letterSpacing: "1px",
+        }}
+      >
+        Headlines
+      </h3>
 
       <div className="row gx-3 gy-3">
         {news
@@ -26,8 +61,8 @@ function BreakNews({ news, darkMode }) {
           .slice(0, 12)
           .map((item, index) => (
             <div key={index} className="col-lg-2 col-md-3 col-6">
-              <a
-                href={item.url}
+              <div
+                onClick={() => window.open(item.url, "_blank")}
                 target="_blank"
                 style={{ textDecoration: "none" }}
               >
@@ -76,8 +111,43 @@ function BreakNews({ news, darkMode }) {
                       {item.description}
                     </div>
                   </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      fetchSummary(item);
+                    }}
+                    style={{
+                      fontSize: "12px",
+                      padding: "4px 6px",
+                      marginTop: "6px",
+                    }}
+                    className="btn btn-outline-secondary"
+                  >
+                    ✨ AI Summary
+                  </button>
+                  {loadingId === item.url && (
+                    <p style={{ fontSize: "12px", color: "#888" }}>
+                      Generating summary...
+                    </p>
+                  )}
+                  {summaries[item.url] && (
+                    <div
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        marginTop: "6px",
+                        fontSize: "12px",
+                        background: "#f8f9fa",
+                        padding: "6px",
+                        borderRadius: "4px",
+                        maxHeight: "80px",
+                        overflowY: "auto",
+                      }}
+                    >
+                      {summaries[item.url]}
+                    </div>
+                  )}
                 </div>
-              </a>
+              </div>
             </div>
           ))}
       </div>
