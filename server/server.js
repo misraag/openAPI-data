@@ -1,7 +1,17 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+
+console.log("GROQ_API_KEY:", process.env.GROQ_API_KEY);
+
+
 import express from 'express';
 import cors from 'cors';
 import axios from "axios";
 import mongoose from 'mongoose';
+import aiRoutes from "./routes/ai.js";
+
+
+
 
 const uri = process.env.MONGO_URI;
 
@@ -13,6 +23,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/ai", aiRoutes);
+
 
 app.get('/', (req, res) => {
   res.send({
