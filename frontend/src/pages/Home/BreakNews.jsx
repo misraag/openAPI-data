@@ -126,7 +126,7 @@ function BreakNews({ news, darkMode }) {
                       openSummaryModal(item);
                     }}
                     className="btn btn-outline-secondary"
-                    style={{ fontSize: "12px", padding: "4px 6px" }}
+                    style={{ fontSize: "9px", padding: "4px 6px", margin: '5px'}}
                   >
                     ✨ AI Summary
                   </button>
