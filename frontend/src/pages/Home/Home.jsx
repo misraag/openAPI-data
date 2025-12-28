@@ -18,10 +18,10 @@ function Home({darkMode}) {
     const fetchNews = async () => {
       try {
         const [topRes, techRes, sportsRes, worldRes] = await Promise.all([
-          axios.get("http://localhost:5000/news/Headlines"),
-          axios.get("http://localhost:5000/news/Tech"),
-          axios.get("http://localhost:5000/news/Cricket"),
-          axios.get("http://localhost:5000/news/World"),
+          axios.get("https://openapi-data-1.onrender.com/news/Headlines"),
+          axios.get("https://openapi-data-1.onrender.com/news/Tech"),
+          axios.get("https://openapi-data-1.onrender.com/news/Cricket"),
+          axios.get("https://openapi-data-1.onrender.com/news/World"),
         ]);
 
         setTopNews(topRes.data.articles || []);

@@ -13,7 +13,7 @@ function CategoryNews({ darkMode }) {
     setLoading(true);
 
     axios
-      .get(`http://localhost:5000/news/${category}`)
+      .get(`https://openapi-data-1.onrender.com/news/${category}`)
       .then((res) => {
         setNews(res.data.articles || []);
       })

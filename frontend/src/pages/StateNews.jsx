@@ -12,7 +12,7 @@ function StateNews({darkMode}) {
     setLoading(true);
 
     axios
-      .get(`http://localhost:5000/news/${stateName}`)
+      .get(`https://openapi-data-1.onrender.com/news/${stateName}`)
       .then((res) => {
         setNews(res.data.articles || []);
       })
