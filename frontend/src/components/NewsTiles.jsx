@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Loading from "./Loading";
+import Modal from "./Modal/Modal";
 
-function NewsTiles({ category, news, loading, darkMode}) {
+function NewsTiles({ category, news, loading, darkMode }) {
+  const [selectedArticle, setSelectedArticle] = useState(null);
   return (
     <div>
       {loading ? (
@@ -15,8 +17,16 @@ function NewsTiles({ category, news, loading, darkMode}) {
             marginTop: "10px",
           }}
         >
-          <h3 style={{ color: darkMode? "white":"black", fontFamily: "'Marcellus', serif", fontWeight:'bolder'}}>{category} News</h3>
-          
+          <h3
+            style={{
+              color: darkMode ? "white" : "black",
+              fontFamily: "'Marcellus', serif",
+              fontWeight: "bolder",
+            }}
+          >
+            {category} News
+          </h3>
+
           <div className="row gx-3 gy-3">
             {news
               .filter((item) => {
@@ -36,10 +46,10 @@ function NewsTiles({ category, news, loading, darkMode}) {
               })
               .map((item, index) => (
                 <div key={index} className="col-lg-2 col-md-3 col-6">
-                  <a
-                    href={item.url}
+                  <div
+                    onClick={() => window.open(item.url, "_blank")}
                     target="_blank"
-                    style={{ textDecoration: "none"}}
+                    style={{ textDecoration: "none" }}
                   >
                     <div
                       style={{
@@ -63,7 +73,13 @@ function NewsTiles({ category, news, loading, darkMode}) {
                           objectFit: "cover",
                         }}
                       />
-                      <div style={{ padding: "10px", backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black" }}>
+                      <div
+                        style={{
+                          padding: "10px",
+                          backgroundColor: darkMode ? "#040404" : "white",
+                          color: darkMode ? "white" : "black",
+                        }}
+                      >
                         <h6 style={{ height: "40px", overflow: "hidden" }}>
                           {item.title}
                         </h6>
@@ -73,17 +89,38 @@ function NewsTiles({ category, news, loading, darkMode}) {
                             height: "70px",
                             overflow: "hidden",
                             fontSize: "12px",
-                            color: darkMode? "#c5babaff":"#555",
+                            color: darkMode ? "#c5babaff" : "#555",
                             marginBottom: "5px",
                           }}
                         >
                           {item.description}
                         </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedArticle(item);
+                          }}
+                          className="btn btn-outline-secondary"
+                          style={{
+                            fontSize: "9px",
+                            padding: "4px 6px",
+                            margin: "5px",
+                          }}
+                        >
+                          ✨ AI Summary
+                        </button>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               ))}
+            {selectedArticle && (
+              <Modal
+                item={selectedArticle}
+                darkMode={darkMode}
+                onClose={() => setSelectedArticle(null)}
+              />
+            )}
           </div>
         </div>
       )}

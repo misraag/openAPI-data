@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import './Home.css'
 import ExploreButton from "../../components/ExploreButton";
+import Modal from "../../components/Modal/Modal";
+
 
 function NewsSections({ category, news , darkMode}) {
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -75,8 +78,8 @@ function NewsSections({ category, news , darkMode}) {
           })
           .slice(0, 12)
           .map((item, index) => (
-            <a
-              href={item.url}
+            <div
+              onClick={() => window.open(item.url, "_blank")}
               target="_blank"
               rel="noreferrer"
               key={index}
@@ -117,8 +120,29 @@ function NewsSections({ category, news , darkMode}) {
                   {item.description}
                 </div>
               </div>
-            </a>
+              <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedArticle(item);
+                    }}
+                    className="btn btn-outline-secondary"
+                    style={{
+                      fontSize: "9px",
+                      padding: "4px 6px",
+                      margin: "5px",
+                    }}
+                  >
+                    ✨ AI Summary
+                  </button>
+            </div>
           ))}
+          {selectedArticle && (
+          <Modal
+            item={selectedArticle}
+            darkMode={darkMode}
+            onClose={() => setSelectedArticle(null)}
+          />
+        )}
       </div>
 
       <button
