@@ -18,13 +18,14 @@ router.post("/summarize", async (req, res) => {
 
   try {
     // ✅ Instantiate Groq HERE (after env is loaded)
+    if (!process.env.GROQ_API_KEY) {
+      console.error("❌ GROQ_API_KEY missing in production");
+      return res.status(500).json({ error: "GROQ_API_KEY missing" });
+    }
+
     const groq = new Groq({
       apiKey: process.env.GROQ_API_KEY,
     });
-
-    if (!process.env.GROQ_API_KEY) {
-      return res.status(500).json({ error: "GROQ_API_KEY missing" });
-    }
 
     const prompt = `
 Write a concise, professional news summary in paragraph form.
