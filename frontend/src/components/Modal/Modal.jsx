@@ -24,7 +24,7 @@ function Modal({ item, onClose, darkMode }) {
       setSummary("");
 
       try {
-        const res = await axios.post("http://localhost:5000/ai/summarize", {
+        const res = await axios.post("https://openapi-data-1.onrender.com/ai/summarize", {
           title: item.title,
           description: item.description,
           url: item.url,
