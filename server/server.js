@@ -13,10 +13,6 @@ import aiRoutes from "./routes/ai.js";
 
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err));
-
 const app = express();
 
 app.use(cors());
@@ -79,4 +75,23 @@ app.get("/news/:category", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("Server is listening on port no. 5000...."));
+const startServer = async () => {
+  try {
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
+
+    console.log("MongoDB connected");
+
+    app.listen(5000, () =>
+      console.log("Server running on port 5000")
+    );
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
+    process.exit(1);
+  }
+};
+
+startServer();
+
+// app.listen(5000, () => console.log("Server is listening on port no. 5000...."));
