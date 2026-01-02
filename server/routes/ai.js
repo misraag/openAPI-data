@@ -1,6 +1,6 @@
 import express from "express";
 import Groq from "groq-sdk";
-import AISummary from "../models/AISummary";
+import AISummary from "../models/AISummary.js";
 
 
 const router = express.Router();
