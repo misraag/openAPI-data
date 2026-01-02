@@ -16,6 +16,8 @@ function CategoryNews({ darkMode }) {
       .get(`https://openapi-data-1.onrender.com/news/${category}`)
       .then((res) => {
         setNews(res.data.articles || []);
+        console.log(`${category} News cached`, res.data.cached);
+
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));

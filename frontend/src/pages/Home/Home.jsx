@@ -29,6 +29,10 @@ function Home({darkMode}) {
         setSportsNews(sportsRes.data.articles || []);
         setWorldNews(worldRes.data.articles || []);
         setLoading(false);
+        console.log("top News cached?", topRes.data.cached);
+        console.log("tech News cached?", techRes.data.cached);
+        console.log("sport News cached?", sportsRes.data.cached);
+        console.log("world News cached?", worldRes.data.cached);
       } catch (err) {
         console.error("Error fetching news:", err);
       }
