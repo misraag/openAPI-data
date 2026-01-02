@@ -1,25 +1,28 @@
 import express from "express";
 import Groq from "groq-sdk";
+import AISummary from "../models/AISummary";
+
 
 const router = express.Router();
-
-const summaryCache = {};
 
 router.post("/summarize", async (req, res) => {
   const { title, description, url } = req.body;
 
-  if (!title) {
-    return res.status(400).json({ error: "Title is required" });
-  }
-
-  if (summaryCache[url]) {
-    return res.json({ summary: summaryCache[url], cached: true });
+  if (!title || !url) {
+    return res.status(400).json({ error: "Title and URL are required" });
   }
 
   try {
-    // ✅ Instantiate Groq HERE (after env is loaded)
+
+    const cached = await AISummary.findOne({ url });
+
+    if (cached) {
+      console.log(`AI summary cache hit for ${title}`);
+      return res.json({ summary: cached.summary, cached: true });
+    }
+
+ 
     if (!process.env.GROQ_API_KEY) {
-      console.error("❌ GROQ_API_KEY missing in production");
       return res.status(500).json({ error: "GROQ_API_KEY missing" });
     }
 
@@ -44,11 +47,13 @@ Description: ${description || ""}
 
     const summary = completion.choices[0].message.content;
 
-    summaryCache[url] = summary;
+    await AISummary.create({ url, summary });
+
+    console.log("AI summary saved to MongoDB");
 
     res.json({ summary, cached: false });
   } catch (err) {
-    console.error("AI ERROR:", err);
+    console.error("AI ERROR:", err.message);
     res.status(500).json({ error: "AI summarization failed" });
   }
 });
