@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import NewsCache from "./models/NewsCache.js";
 dotenv.config({ path: "./.env" });
 
 console.log("GROQ_API_KEY:", process.env.GROQ_API_KEY);
@@ -9,9 +10,6 @@ import cors from 'cors';
 import axios from "axios";
 import mongoose from 'mongoose';
 import aiRoutes from "./routes/ai.js";
-
-
-
 
 const uri = process.env.MONGO_URI;
 
@@ -32,8 +30,7 @@ app.get('/', (req, res) => {
   });
 });
 
-let cachedNews = {};
-let lastFetchTime = {};
+
 const CACHE_DURATION = 1000 * 60 * 60;
 
 
@@ -48,23 +45,37 @@ app.get("/news/:category", async (req, res) => {
   let categoryURL = `q=${req.params.category}`
 
   console.log("Entered news api for category:... ", category)
- 
 
-  if (cachedNews[category] && (now - lastFetchTime[category] < CACHE_DURATION)) {
-    console.log(`Returning cached news for category ${category}`);
-    return res.json(cachedNews[category]);
-  }
-  
+  try{
+    const cached = await NewsCache.findOne({ category });
 
-  try {
-    const response = await axios.get(url+categoryURL);
-    cachedNews[category] = response.data;
-    lastFetchTime[category] = now;
-    console.log(`Fetched fresh news for category ${category}`)
-    res.json(cachedNews[category]);
-  } catch (error) {
+    if(cached){
+      const age = now - new Date(cached.fetchedAt).getTime();
+
+      if(age<CACHE_DURATION){
+        console.log(`Returning Mongo cached news for ${category}`);
+        return res.json({ articles: cached.articles, cached: true})
+      }
+    }
+    console.log(`Fetching fresh news for ${category}`);
+
+    const response = await axios.get(url + categoryURL);
+    const articles = response.data.articles;
+
+    await NewsCache.findOneAndUpdate(
+      { category },
+      {
+        category,
+        articles,
+        fetchedAt: new Date(),
+      },
+      { upsert: true }
+    );
+
+    res.json({articles, cached:false});
+  } catch(error) {
     console.error("Error fetching news:", error.message);
-    res.status(500).json({ error: "Failed to fetch news" });
+    res.status(500).json({error: "Failed to fetch news"});
   }
 });
 
