@@ -24,3 +24,16 @@ thin-scroll::-webkit-scrollbar {
   z-index: 10;
   position: relative;
 }
+
+
+@media (max-width: 992px) {
+  #mobileNav.offcanvas-start {
+    --bs-offcanvas-width: 45vw !important;
+    max-width: 45vw !important;
+  }
+}
+
+.offcanvas-backdrop.show {
+  backdrop-filter: blur(10px);
+  background-color: rgba(250, 249, 249, 0.1) !important;
+}

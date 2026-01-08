@@ -119,7 +119,7 @@ function Modal({ item, onClose, darkMode }) {
         )}
 
         {/* Content */}
-        <div style={{ padding: "16px" }}>
+        <div style={{ padding: "16px", maxHeight:"20vh", overflowY:"auto" }}>
           <h5 style={{ marginBottom: "10px" }}>{activeArticle?.title}</h5>
 
           {loading ? (
