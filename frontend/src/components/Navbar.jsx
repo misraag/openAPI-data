@@ -138,7 +138,7 @@ function Navbar({darkMode, setDarkMode}) {
 
           <div className="form-check form-switch text-white">
             <i onClick={()=>setDarkMode(!darkMode)} style={{cursor:"pointer", marginRight:"7px", fontSize:"25px"}}>
-              {darkMode ? <MdDarkMode/> : <AiFillSun style={{color:"yellow"}}/>}
+              {darkMode ? <MdDarkMode/> : <AiFillSun style={{color:"yellow"}} />}
             </i>
           </div>
         </div>
