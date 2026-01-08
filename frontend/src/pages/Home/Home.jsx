@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import BreakNews from "./BreakNews";
 import NewsSections from "./NewsSections";
 import Loading from "../../components/Loading";
+import TileList from "../../components/TileList";
 
 function Home({darkMode}) {
   let [topNews, setTopNews] = useState([]);
@@ -44,10 +44,10 @@ function Home({darkMode}) {
   return (
     <>
       {loading ? (
-        <Loading state="Top" />
+        <Loading state="Headlines" />
       ) : (
         <div>
-          <BreakNews darkMode={darkMode} news={topNews} />
+          <TileList title="Headlines" news={topNews} limit={12} darkMode={darkMode} />
           <NewsSections darkMode={darkMode} category="Technology" news={techNews} />
           <NewsSections darkMode={darkMode} category="Sports" news={sportsNews} />
           <NewsSections darkMode={darkMode} category="World" news={worldNews} />

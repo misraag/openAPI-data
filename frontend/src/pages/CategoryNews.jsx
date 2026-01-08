@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import NewsTiles from "../components/NewsTiles";
+import TileList from "../components/TileList";
 
 function CategoryNews({ darkMode }) {
   const { category } = useParams();
@@ -24,12 +25,7 @@ function CategoryNews({ darkMode }) {
   }, [category]);
 
   return (
-    <NewsTiles
-      darkMode={darkMode}
-      loading={loading}
-      category={category}
-      news={news}
-    />
+    <TileList title={`${category} News`} news={news} loading={loading} darkMode={darkMode} />
   );
 }
 
