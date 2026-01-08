@@ -43,8 +43,9 @@ function Navbar({darkMode, setDarkMode}) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{fontFamily: "'Marcellus', serif", marginBottom:'25px', backgroundColor:"#165bc1"}}>
       <div className="container-fluid">
-        <LuReceiptIndianRupee style={{color:"white", fontSize:"25px", margin:"2px"}}/>
+        
         <Link className="navbar-brand" to="/" style={{ fontFamily: "'Marcellus', serif", fontWeight: "bold", letterSpacing: "1px" }}>
+        <LuReceiptIndianRupee style={{color:"white", fontSize:"27px", margin:"2px", cursor:"pointer"}}/>
           WhatsNew
         </Link>
 
