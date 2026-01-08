@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
 import Modal from "./Modal/Modal";
+import AIButton from "./AIButton";
 
 function NewsTiles({ category, news, loading, darkMode }) {
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -53,14 +54,15 @@ function NewsTiles({ category, news, loading, darkMode }) {
                   >
                     <div
                       style={{
-                        background: "#fff",
+                        background: `${darkMode}? "black": "white"`,
                         borderRadius: "8px",
-                        color: "#000",
+                        color: `${darkMode}? "white": "black"`,
                         overflow: "hidden",
                         boxShadow: "0 0 10px rgba(0,0,0,0.2)",
                         padding: 0,
                         cursor: "pointer",
                         transition: "transform 0.2s",
+                        border: "none",
                       }}
                       className="news-tile"
                     >
@@ -95,21 +97,13 @@ function NewsTiles({ category, news, loading, darkMode }) {
                         >
                           {item.description}
                         </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedArticle(item);
-                          }}
-                          className="btn btn-outline-secondary"
-                          style={{
-                            fontSize: "9px",
-                            padding: "4px 6px",
-                            margin: "5px",
-                          }}
-                        >
-                          ✨ AI Summary
-                        </button>
+                        
+                        
                       </div>
+                      <AIButton
+                          darkMode={darkMode}
+                          onClick={() => setSelectedArticle(item)}
+                        />
                     </div>
                   </div>
                 </div>

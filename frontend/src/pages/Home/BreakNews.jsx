@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import AIButton from "../../components/AIButton";
 
 function BreakNews({ news, darkMode }) {
-
   const [selectedArticle, setSelectedArticle] = useState(null);
 
   return (
@@ -46,9 +46,9 @@ function BreakNews({ news, darkMode }) {
               >
                 <div
                   style={{
-                    background: "#fff",
+                    background: `${darkMode}? "black": "white"`,
                     borderRadius: "8px",
-                    color: "#000",
+                    color: `${darkMode}? "white": "black"`,
                     overflow: "hidden",
                     boxShadow: "0 0 10px rgba(0,0,0,0.2)",
                     padding: 0,
@@ -89,20 +89,11 @@ function BreakNews({ news, darkMode }) {
                       {item.description}
                     </div>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedArticle(item);
-                    }}
-                    className="btn btn-outline-secondary"
-                    style={{
-                      fontSize: "9px",
-                      padding: "4px 6px",
-                      margin: "5px",
-                    }}
-                  >
-                    ✨ AI Summary
-                  </button>
+                  
+                  <AIButton
+                    darkMode={darkMode}
+                    onClick={() => setSelectedArticle(item)}
+                  />
                 </div>
               </div>
             </div>

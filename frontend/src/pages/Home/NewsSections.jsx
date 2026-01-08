@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import './Home.css'
+import "./Home.css";
 import ExploreButton from "../../components/ExploreButton";
 import Modal from "../../components/Modal/Modal";
+import AIButton from "../../components/AIButton";
 
-
-function NewsSections({ category, news , darkMode}) {
+function NewsSections({ category, news, darkMode }) {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const scrollRef = useRef(null);
 
@@ -29,9 +29,20 @@ function NewsSections({ category, news , darkMode}) {
         marginTop: "40px",
       }}
     >
-
-      <div style={{ display: "flex", alignItems:'center', marginBottom:'15px'}}>
-        <h5 style={{ color: darkMode ? "white" : "black", margin:'0', lineHeight: '1', fontFamily: "'Marcellus', serif", fontWeight:'bolder'}}>{category} News</h5>
+      <div
+        style={{ display: "flex", alignItems: "center", marginBottom: "15px" }}
+      >
+        <h5
+          style={{
+            color: darkMode ? "white" : "black",
+            margin: "0",
+            lineHeight: "1",
+            fontFamily: "'Marcellus', serif",
+            fontWeight: "bolder",
+          }}
+        >
+          {category} News
+        </h5>
         <ExploreButton darkMode={darkMode} to={`/${category}`} />
       </div>
       <button
@@ -85,9 +96,9 @@ function NewsSections({ category, news , darkMode}) {
               key={index}
               style={{
                 flex: "0 0 195px",
-                background: "#fff",
+                background: `${darkMode}? "black": "white"`,
                 borderRadius: "8px",
-                color: "#000",
+                color: `${darkMode}? "white": "black"`,
                 overflow: "hidden",
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
                 textDecoration: "none",
@@ -103,7 +114,13 @@ function NewsSections({ category, news , darkMode}) {
                   objectFit: "cover",
                 }}
               />
-              <div style={{ padding: "10px", backgroundColor: darkMode? "#040404":"white", color: darkMode? "white":"black"}}>
+              <div
+                style={{
+                  padding: "10px",
+                  backgroundColor: darkMode ? "#040404" : "white",
+                  color: darkMode ? "white" : "black",
+                }}
+              >
                 <h6 style={{ height: "40px", overflow: "hidden" }}>
                   {item.title}
                 </h6>
@@ -113,30 +130,21 @@ function NewsSections({ category, news , darkMode}) {
                     height: "35px",
                     overflow: "hidden",
                     fontSize: "12px",
-                    color: darkMode? "#c5babaff":"#555",
+                    color: darkMode ? "#c5babaff" : "#555",
                     marginBottom: "5px",
                   }}
                 >
                   {item.description}
                 </div>
               </div>
-              <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedArticle(item);
-                    }}
-                    className="btn btn-outline-secondary"
-                    style={{
-                      fontSize: "9px",
-                      padding: "4px 6px",
-                      margin: "5px",
-                    }}
-                  >
-                    ✨ AI Summary
-                  </button>
+              
+              <AIButton
+                darkMode={darkMode}
+                onClick={() => setSelectedArticle(item)}
+              />
             </div>
           ))}
-          {selectedArticle && (
+        {selectedArticle && (
           <Modal
             item={selectedArticle}
             darkMode={darkMode}
