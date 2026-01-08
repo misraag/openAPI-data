@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdDarkMode } from "react-icons/md";
-import { AiFillSun } from "react-icons/ai";
+import { MdOutlineDarkMode, MdDarkMode  } from "react-icons/md";
 import { LuReceiptIndianRupee } from "react-icons/lu";
+import { AiFillSun } from "react-icons/ai";
 
-function Navbar({ darkMode, setDarkMode }) {
+function Navbar({darkMode, setDarkMode}) {
   const states = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -41,180 +41,105 @@ function Navbar({ darkMode, setDarkMode }) {
     "Chandigarh",
   ];
 
-  const menuItems = [
-    { name: "Home", link: "/" },
-    { name: "World", link: "/World" },
-    { name: "National", link: "/National" },
-    { name: "Politics", link: "/Politics" },
-    { name: "Sports", link: "/Sports" },
-    { name: "Technology", link: "/Technology" },
-    { name: "Entertainment", link: "/Entertainment" },
-  ];
-
-  const closeOffcanvas = () => {
-    const el = document.getElementById("mobileNav");
-    if (!el) return;
-    const offcanvas = window.bootstrap.Offcanvas.getInstance(el);
-    if (offcanvas) {
-      offcanvas.hide();
-    }
-  };
-
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-dark"
-      style={{
-        backgroundColor: "#165bc1",
-        marginBottom: "25px",
-        fontFamily: "'Marcellus', serif",
-      }}
-    >
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{fontFamily: "'Marcellus', serif", marginBottom:'25px', backgroundColor:"#165bc1"}}>
       <div className="container-fluid">
-        <Link
-          className="navbar-brand d-flex align-items-center"
-          to="/"
-          style={{ fontWeight: "bold", letterSpacing: "1px" }}
-        >
-          <LuReceiptIndianRupee
-            style={{ fontSize: "27px", marginRight: "6px" }}
-          />
+        
+        <Link className="navbar-brand" to="/" style={{ fontFamily: "'Marcellus', serif", fontWeight: "bold", letterSpacing: "1px" }}>
+        <LuReceiptIndianRupee style={{color:"white", fontSize:"27px", margin:"2px", cursor:"pointer"}}/>
           WhatsNew
         </Link>
 
         <button
-          className="navbar-toggler d-lg-none"
+          className="navbar-toggler"
           type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#mobileNav"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse d-none d-lg-flex">
-          <ul className="navbar-nav me-auto">
-            {menuItems.map((m, i) => (
-              <li className="nav-item" key={i}>
-                <Link className="nav-link" to={m.link}>
-                  {m.name}
-                </Link>
-              </li>
-            ))}
-
-            <li className="nav-item dropdown">
+        <div className="collapse navbar-collapse" id="navbarContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/World">
+                World
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/National">
+                National
+              </Link>
+            </li>
+            <li className="nav-item dropdown" >
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
+                id="statesDropdown"
+                role="button"
                 data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
                 States
               </a>
-              <ul
-                className="dropdown-menu"
-                style={{ maxHeight: "30vh", overflowY: "auto" }}
-              >
-                {states.map((s, i) => (
-                  <li key={i}>
+              <ul className="dropdown-menu" aria-labelledby="statesDropdown" style={{overflowY:"auto", maxHeight:"30vh"}}>
+                {states.map((state, index) => (
+                  <li key={index}>
                     <Link
                       className="dropdown-item"
-                      to={`/${encodeURIComponent(s)}`}
+                      to={`/${encodeURIComponent(state)}`}
                     >
-                      {s}
+                      {state}
                     </Link>
                   </li>
                 ))}
               </ul>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Politics">
+                Politics
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Sports">
+                Sports
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Technology">
+                Technology
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Entertainment">
+                Entertainment
+              </Link>
+            </li>
           </ul>
 
-          <div className="text-white ms-3">
-            <i
-              onClick={() => setDarkMode(!darkMode)}
-              style={{ cursor: "pointer", fontSize: "25px" }}
-            >
-              {darkMode ? (
-                <MdDarkMode />
-              ) : (
-                <AiFillSun style={{ color: "yellow" }} />
-              )}
+          {/* Not implemented search bar yet */}
+          {/* <form className="d-flex me-3" role="search">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search news"
+              aria-label="Search"
+            />
+            <button className="btn btn-outline-light" type="submit">Search</button>
+          </form> */}
+
+          <div className="form-check form-switch text-white">
+            <i onClick={()=>setDarkMode(!darkMode)} style={{cursor:"pointer", marginRight:"7px", fontSize:"25px"}}>
+              {darkMode ? <MdDarkMode/> : <AiFillSun style={{color:"yellow"}} />}
             </i>
-          </div>
-        </div>
-
-        <div
-          className="offcanvas offcanvas-start text-bg-primary d-lg-none"
-          id="mobileNav"
-        >
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title">WhatsNew</h5>
-            <button
-              className="btn-close btn-close-white"
-              data-bs-dismiss="offcanvas"
-            ></button>
-          </div>
-
-          <div className="offcanvas-body">
-            <ul className="navbar-nav">
-              {menuItems.map((m, i) => (
-                <li key={i} className="nav-item">
-                  <Link
-                    style={{ color: "white" }}
-                    className="nav-link"
-                    to={m.link}
-                    onClick={() => {
-                      closeOffcanvas();
-                    }}
-                  >
-                    {m.name}
-                  </Link>
-                </li>
-              ))}
-
-              <li className="nav-item">
-                <span
-                  className="nav-link dropdown-toggle"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#mobileStates"
-                  style={{ cursor: "pointer" , color:"white"}}
-                >
-                  States
-                </span>
-
-                <ul
-                  className="collapse list-unstyled ps-3"
-                  id="mobileStates"
-                  style={{ maxHeight: "40vh", overflowY: "auto"}}
-                >
-                  {states.map((s, i) => (
-                    <li key={i}>
-                      <Link
-                        style={{ color: "white" }}
-                        className="nav-link"
-                        to={`/${encodeURIComponent(s)}`}
-                        onClick={closeOffcanvas}
-                      >
-                        {s}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-
-            <div className="text-white mt-3">
-              <i
-                onClick={() => {
-                  setDarkMode(!darkMode);
-                  closeOffcanvas();
-                }}
-                style={{ cursor: "pointer", fontSize: "25px" }}
-              >
-                {darkMode ? (
-                  <MdDarkMode />
-                ) : (
-                  <AiFillSun style={{ color: "yellow" }} />
-                )}
-              </i>
-            </div>
           </div>
         </div>
       </div>
