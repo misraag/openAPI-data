@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdOutlineDarkMode, MdDarkMode  } from "react-icons/md";
+import { LuReceiptIndianRupee } from "react-icons/lu";
 
 function Navbar({darkMode, setDarkMode}) {
   const states = [
@@ -39,8 +41,9 @@ function Navbar({darkMode, setDarkMode}) {
   ];
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{fontFamily: "'Marcellus', serif", marginBottom:'25px'}}>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={{fontFamily: "'Marcellus', serif", marginBottom:'25px', backgroundColor:"#165bc1"}}>
       <div className="container-fluid">
+        <LuReceiptIndianRupee style={{color:"white", fontSize:"25px", margin:"2px"}}/>
         <Link className="navbar-brand" to="/" style={{ fontFamily: "'Marcellus', serif", fontWeight: "bold", letterSpacing: "1px" }}>
           WhatsNew
         </Link>
@@ -132,17 +135,9 @@ function Navbar({darkMode, setDarkMode}) {
           </form> */}
 
           <div className="form-check form-switch text-white">
-            
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="darkModeSwitch"
-              style={{cursor:'pointer'}}
-              onChange={() => setDarkMode(!darkMode)}
-            />
-            <label className="form-check-label" htmlFor="darkModeSwitch">
-              Dark Mode
-            </label>
+            <i onClick={()=>setDarkMode(!darkMode)} style={{cursor:"pointer", marginRight:"7px", fontSize:"25px"}}>
+              {darkMode ? <MdDarkMode/> : <MdOutlineDarkMode/>}
+            </i>
           </div>
         </div>
       </div>
