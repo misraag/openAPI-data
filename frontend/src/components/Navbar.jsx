@@ -94,7 +94,7 @@ function Navbar({darkMode, setDarkMode}) {
                   <li key={index}>
                     <Link
                       className="dropdown-item"
-                      to={`/state/${encodeURIComponent(state)}`}
+                      to={`/${encodeURIComponent(state)}`}
                     >
                       {state}
                     </Link>

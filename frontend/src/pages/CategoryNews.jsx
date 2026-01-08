@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import NewsTiles from "../components/NewsTiles";
 import TileList from "../components/TileList";
 
 function CategoryNews({ darkMode }) {
