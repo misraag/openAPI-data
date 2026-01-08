@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineDarkMode, MdDarkMode  } from "react-icons/md";
 import { LuReceiptIndianRupee } from "react-icons/lu";
+import { AiFillSun } from "react-icons/ai";
 
 function Navbar({darkMode, setDarkMode}) {
   const states = [
@@ -137,7 +138,7 @@ function Navbar({darkMode, setDarkMode}) {
 
           <div className="form-check form-switch text-white">
             <i onClick={()=>setDarkMode(!darkMode)} style={{cursor:"pointer", marginRight:"7px", fontSize:"25px"}}>
-              {darkMode ? <MdDarkMode/> : <MdOutlineDarkMode/>}
+              {darkMode ? <MdDarkMode/> : <AiFillSun style={{color:"yellow"}}/>}
             </i>
           </div>
         </div>
